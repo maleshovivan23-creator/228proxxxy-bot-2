@@ -1,0 +1,14 @@
+services:
+  bot:
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      # постоянный том: файл базы переживает пересборку и перезапуск
+      - bot-data:/data
+    ports:
+      # нужен только в режиме webhook (когда задан WEBHOOK_BASE_URL)
+      - "8080:8080"
+
+volumes:
+  bot-data:
